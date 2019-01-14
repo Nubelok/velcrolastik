@@ -8,7 +8,10 @@ import wpilib.drive
 
 from state import state
 from oi import read_input
-import time
+import timer
+from oi import read_input_chasis
+from oi import lift
+from oi import cargo
 
 class MyRobot(wpilib.TimedRobot):
 
@@ -88,6 +91,32 @@ class MyRobot(wpilib.TimedRobot):
                     self.lift_motor5.set(0)   
             else:
                 state["timer"] = 0
+
+
+
+        cargo() #ISMAFEEDER 
+        
+        if state["cargo"]:
+            self.cargo_motor.set(1)
+        else:
+            self.cargo_motor.set(0)
+
+        lift()
+        
+        if state["lift"]:
+            state["timer_lift"] += 1
+            if state["timer_lift"] <= 50:
+                self.lift_motor.set(1)
+            elif state["timer_lift"] > 50 and state["timer_lift"] < 100:
+                self.lift_motor.set(0)
+                self.cargo_motor.set(-1)
+            elif state["timer_lift"] >= 100:
+                self.lift_motor.set(-1)
+                self.cargo_motor.set(0)
+        else:
+            state["timer_lift"] = 0
+            self.lift_motor.set(0)
+        
             
 
     

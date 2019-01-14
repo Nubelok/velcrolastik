@@ -18,5 +18,18 @@ def read_input ():
 	state["chasis_y_mov"] = y
 	state["chasis_x_mov"] = x
 	state["lift_up"] = e
+
+def cargo(): #ISMAFEEDER
+	stick = wpilib.Joystick(1)
+
+	button_1_is_pressed = stick.getRawButton(5)
+	state["cargo"] = button_1_is_pressed
+	
+def lift(): #ISMAFEEDER
+
+	stick = wpilib.Joystick(1)
+	
+	button_2_is_pressed = stick.getRawButton(6)
+	state["lift"] = button_2_is_pressed
 	
 
